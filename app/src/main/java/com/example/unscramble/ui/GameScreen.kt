@@ -115,6 +115,13 @@ fun GameScreen(gameViewModel: GameViewModel = viewModel()) {
             }
         }
 
+        if (gameUiState.isGameOver) {
+            FinalScoreDialog(
+                score = gameUiState.score,
+                onPlayAgain = { gameViewModel.resetGame() }
+            )
+        }
+
         GameStatus(score = gameUiState.score, modifier = Modifier.padding(20.dp))
     }
 }
@@ -220,7 +227,7 @@ private fun FinalScoreDialog(
             // onCloseRequest.
         },
         title = { Text(text = stringResource(R.string.congratulations)) },
-        text = { Text(text = stringResource(R.string.you_scored, score)) },
+        text = { Text(stringResource(R.string.you_scored, score)) },
         modifier = modifier,
         dismissButton = {
             TextButton(
